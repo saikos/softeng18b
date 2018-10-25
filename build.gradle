@@ -1,0 +1,36 @@
+plugins {
+    id 'java'                               //for java-only project
+    id 'groovy'                             //for mixed java/groovy project
+    id 'war'                                //for genarating war files
+    id 'org.akhikhl.gretty' version '2.0.0' //web app development plugin
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+//project.group = ...
+//project.version = ...
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.9'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "javax.servlet:javax.servlet-api:3.1.0"              //the Java servlet libraries
+    //compile "org.codehaus.groovy:groovy-all:2.4.15"              //the Groovy lang
+
+    providedRuntime "javax.servlet:javax.servlet-api:3.1.0"      //provided by the servlet container at runtime
+}
+
+gretty {
+    //scanInterval = 0 //disable hot deployment
+    httpEnabled = true
+    httpsEnabled = false
+    httpPort = 8765
+    contextPath = 'app'
+    //servletContainer = 'tomcat8' //use the default (jetty)
+}
