@@ -24,6 +24,16 @@
         <servlet-class>gr.ntua.ece.softeng18b.HelloWorldServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <!-- Restlet adapter for servlets -->
+        <servlet-name>RestletAdapter</servlet-name>
+        <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
+        <init-param>
+            <param-name>org.restlet.application</param-name>
+            <param-value>gr.ntua.ece.softeng18b.api.RestfulApp</param-value>
+        </init-param>
+    </servlet>
+
     <!-- //////////////////// -->
     <!-- Servlet URL Mappings -->
     <!-- //////////////////// -->
@@ -31,6 +41,12 @@
     <servlet-mapping>
         <servlet-name>hello</servlet-name>
         <url-pattern>/hello.txt</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <!-- Map the Restlet endpoints to /observatory/api URL -->
+        <servlet-name>RestletAdapter</servlet-name>
+        <url-pattern>/observatory/api/*</url-pattern>
     </servlet-mapping>
 
     <!--

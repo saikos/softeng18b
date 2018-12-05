@@ -1,5 +1,7 @@
 package gr.ntua.ece.softeng18b.conf;
 
+import gr.ntua.ece.softeng18b.data.DataAccess;
+
 import java.util.Properties;
 import java.util.Set;
 
@@ -12,10 +14,9 @@ public final class Configuration {
 
     private String contextPath = null;
     private Properties props = new Properties();
+    private DataAccess dataAccess = new DataAccess();
 
-    private Configuration() {
-
-    }
+    private Configuration() {}
 
     public static Configuration getInstance() {
         return self;
@@ -24,6 +25,18 @@ public final class Configuration {
     void setup(String contextPath, Properties props) throws ConfigurationException{
         this.contextPath = contextPath;
         this.props = props;
+
+        try {
+            dataAccess.setup(
+                    getProperty("db.driver"),
+                    getProperty("db.url"),
+                    getProperty("db.user"),
+                    getProperty("db.pass")
+            );
+        }
+        catch(Exception e) {
+            throw new ConfigurationException(e.getMessage(), e);
+        }
     }
 
     public String getContextPath() {
@@ -40,5 +53,9 @@ public final class Configuration {
 
     public Set<String> propertyNames() {
         return props.stringPropertyNames();
+    }
+
+    public DataAccess getDataAccess() {
+        return dataAccess;
     }
 }
