@@ -41,7 +41,7 @@ public class ProductsResource extends ServerResource {
         String description = form.getFirstValue("description");
         String category = form.getFirstValue("category");
         boolean withdrawn = Boolean.valueOf(form.getFirstValue("withdrawn"));
-        String tags = form.getFirstValue("tags");
+        String[] tags = form.getValuesArray("tags");
 
         //validate the values (in the general case)
         //...

@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `softeng2018b` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `softeng2018b`;
 -- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: softeng2018b
@@ -28,7 +30,6 @@ CREATE TABLE `product` (
   `description` mediumtext,
   `category` varchar(128) NOT NULL,
   `withdrawn` bit(1) NOT NULL DEFAULT b'0',
-  `tags` mediumtext,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,8 +40,58 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Vendor TV 32\'\' Model X','Mplah mplah','TV','\0','TV, Smart TV'),(2,'OtherVendor TV 42\'\' Model Y','Mplah Mplah','TV','\0','TV, Smart TV');
+INSERT INTO `product` VALUES (1,'Vendor TV 32\'\' Model X','Mplah mplah','TV','\0'),(2,'OtherVendor TV 42\'\' Model Y','Mplah Mplah','TV','\0');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_tags`
+--
+
+DROP TABLE IF EXISTS `product_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product_tags` (
+  `pid` int(11) NOT NULL DEFAULT '0',
+  `tag` varchar(255) NOT NULL,
+  PRIMARY KEY (`pid`,`tag`),
+  CONSTRAINT `fk_prod` FOREIGN KEY (`pid`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_tags`
+--
+
+LOCK TABLES `product_tags` WRITE;
+/*!40000 ALTER TABLE `product_tags` DISABLE KEYS */;
+INSERT INTO `product_tags` VALUES (1,'tag1'),(1,'tag2'),(2,'tag3'),(2,'tag4'),(2,'tag5');
+/*!40000 ALTER TABLE `product_tags` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) NOT NULL,
+  `fullname` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +103,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-05 14:47:43
+-- Dump completed on 2019-01-06 23:58:49
