@@ -38,7 +38,7 @@ dependencies {
     
     testCompile "org.codehaus.groovy:groovy-all:2.5.4"
     testCompile "org.spockframework:spock-core:1.2-groovy-2.5"
-    testCompile "com.github.saikos:softeng18b-rest-api-client:v1.0"
+    testCompile "com.github.saikos:softeng18b-rest-api-client:v1.2"
 
     providedRuntime "javax.servlet:javax.servlet-api:3.1.0"      //provided by the servlet container at runtime
 
@@ -51,9 +51,10 @@ dependencies {
 
 gretty {
     //scanInterval = 0 //disable hot deployment
-    httpEnabled = true
-    httpsEnabled = false
+    httpEnabled = false
+    httpsEnabled = true
     httpPort = 8765
+    httpsPort = 8765
     contextPath = ''
     //servletContainer = 'tomcat8' //use the default (jetty)
     

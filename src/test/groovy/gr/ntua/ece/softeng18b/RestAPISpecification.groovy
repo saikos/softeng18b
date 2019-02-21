@@ -9,11 +9,13 @@ import spock.lang.Specification
 import spock.lang.Stepwise
 
 @Stepwise class RestAPISpecification extends Specification {
+
+    private static final String IGNORED = System.setProperty("IGNORE_SSL_ERRORS", "true")
     
     private static final String HOST = System.getProperty("gretty.host")
-    private static final String PORT = System.getProperty("gretty.port")
+    private static final String PORT = System.getProperty("gretty.httpsPort")
 	
-    @Shared RestAPI api = new RestAPI(HOST, PORT as Integer, false)
+    @Shared RestAPI api = new RestAPI(HOST, PORT as Integer, true)
     
     def "User logins"() {
         when:
